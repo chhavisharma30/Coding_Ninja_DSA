@@ -96,6 +96,82 @@ TreeNode<int>* takeInput2(){
     return root;
 }
 
+//func to count nodes of the tree
+int numNodes(TreeNode<int>* root){
+    int ans=1;
+    for(int i=0;i<root->children.size();i++){
+        ans+=numNodes(root->children[i]);
+    }
+    return ans;
+}
+
+//func to calculate sum of all nodes
+int sumNodes(TreeNode<int>* root){
+    int ans=root->data;
+    for(int i=0;i<root->children.size();i++){
+        ans+=sumNodes(root->children[i]);
+    }
+    return ans;
+}
+
+//func to calculate largest node from all nodes
+int largestNode(TreeNode<int>* root){
+    int largest = root->data;
+    for(int i=0;i<root->children.size();i++){
+        int currmax=largestNode(root->children[i]);
+        if(largest<currmax){
+            largest = currmax;
+        }
+    }
+    return largest;
+}
+
+//func to calculate height of the tree
+int height(TreeNode<int>*root){
+    int h=0;
+    if(root == NULL){
+        return h;
+    }
+    for(int i=0;i<root->children.size();i++){
+        int hcurr = height(root->children[i]);
+        if(hcurr>h){
+            h = hcurr;
+        }
+    }
+    return h+1;
+}
+
+//func to print nodes of a particular level/depth
+void printlevel(TreeNode<int>* root,int k){
+    if(root ==NULL){
+        return;
+    }
+
+    if(k==0){
+        cout<<root->data<<" ";
+        return;
+    }
+
+    for(int i=0;i<root->children.size();i++){
+        printlevel(root->children[i],k-1);
+    }
+}
+
+//func to count no of leaf nodes
+int leafNodes(TreeNode<int>* root){
+    if(root==NULL){
+        return 0;
+    }
+    if(root->children.size()==0){
+        return 1;
+    }
+    int l=0;
+    for(int i=0;i<root->children.size();i++){
+        l+=leafNodes(root->children[i]);
+    }
+    return l;
+}
+
 //func to print tree
 void printTree(TreeNode<int>*root){
     if(root == NULL){   //edge case (not a base case)
@@ -144,4 +220,10 @@ int main(){
     TreeNode<int>* root = takeInput2();
     //printTree(root);
     printTree2(root);
+    cout<<numNodes(root)<<endl;
+    cout<<sumNodes(root)<<endl;
+    cout<<largestNode(root)<<endl;
+    cout<<height(root)<<endl;
+    printlevel(root,1);
+    cout<<leafNodes(root)<<endl;
 }
