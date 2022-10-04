@@ -13,6 +13,13 @@ class TreeNode{
  TreeNode(T data){
     this->data=data;
  }   
+
+    //second way of deleting the tree
+ ~TreeNode(){
+    for(int i=0;i<children.size();i++){
+        delete children[i];
+    }
+ }
 };
 
 //func to take input from user
@@ -207,6 +214,30 @@ void printTree2(TreeNode<int>* root){
     }
 }
 
+//func for preorder traversal(root first)
+void preorder(TreeNode<int>* root){
+    cout<<root->data<<" ";
+    for(int i=0;i<root->children.size();i++){
+        preorder(root->children[i]);
+    }
+}
+
+//func for postorder traversal(child first)
+void postorder(TreeNode<int>* root){
+    for(int i=0;i<root->children.size();i++){
+        postorder(root->children[i]);
+    }
+    cout<<root->data<<" ";
+}
+
+//func to delete the tree(moethod 1 of deleting)
+void deleteTree(TreeNode<int>* root){
+    for(int i=0;i<root->children.size();i++){
+        deleteTree(root->children[i]);
+    }
+    delete root;
+}
+
 int main(){
     /*TreeNode<int> * root = new TreeNode<int>(1); 
     TreeNode<int> * node1 = new TreeNode<int>(2);
@@ -226,4 +257,9 @@ int main(){
     cout<<height(root)<<endl;
     printlevel(root,1);
     cout<<leafNodes(root)<<endl;
+    preorder(root);
+    cout<<endl;
+    postorder(root);
+    //deleteTree(root);
+    delete root;
 }
