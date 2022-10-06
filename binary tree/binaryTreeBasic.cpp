@@ -20,6 +20,35 @@ class BinaryTreeNode{
     }
 };
 
+//inorder traversal : left-root-right
+void inorder(BinaryTreeNode<int>* root){
+    if(root==NULL){
+        return;
+    }
+    inorder(root->left);
+    cout<<root->data<<" ";
+    inorder(root->right);
+}
+
+//preorder traversal : root-left-right'
+void preorder(BinaryTreeNode<int>* root){
+    if(root==NULL){
+        return;
+    }
+    cout<<root->data<<" ";
+    preorder(root->left);
+    preorder(root->right);
+}
+
+//postorder traversal : left-right-root
+void postorder(BinaryTreeNode<int>* root){
+    if(root== NULL)
+        return;
+    postorder(root->left);
+    postorder(root->right);
+    cout<<root->data<<" ";
+}
+
 //func to take input recursive
 BinaryTreeNode<int>* takeInput(){
     int rootData;
@@ -132,6 +161,44 @@ void printTree(BinaryTreeNode<int>* root){
     printTree(root->right);
 }
 
+//func to check if a node is present in the tree
+
+bool checkNode(BinaryTreeNode<int>* root, int x){
+    if(root==NULL){
+        return false;
+    }
+    if(root->data==x){
+        return true;
+    }
+    return (checkNode(root->left,x)) || (checkNode(root->right,x));
+}
+
+//func to find height of the tree
+int heightOfTree(BinaryTreeNode<int>* root){
+    if(root==NULL){
+        return 0;
+    }
+    int h1= heightOfTree(root->left);
+    int h2= heightOfTree(root->right);
+    if(h1>h2){
+        return 1+h1;
+    }else{
+        return 1+h2;
+    }
+}
+
+//func to generate mirror image of tree
+BinaryTreeNode<int>* mirrorImage(BinaryTreeNode<int>* root){
+    if(root==NULL){
+        return root;
+    }
+    BinaryTreeNode<int>* n1 = mirrorImage(root->left);
+    BinaryTreeNode<int>* n2 = mirrorImage(root->right);
+    root->left=n2;
+    root->right=n1;
+    return root;
+}
+
 int main(){
     /*BinaryTreeNode<int>* root = new BinaryTreeNode<int>(1);
     BinaryTreeNode<int>* node1 = new BinaryTreeNode<int>(2);
@@ -139,7 +206,18 @@ int main(){
     root->left=node1;
     root->right=node2;*/
     BinaryTreeNode<int>* root= takeInput2();
-    printTree2(root);
-    cout<<countNodes(root);
+    //int x;
+    //cout<<"Enter no you wanna check : "<<endl ;
+    //cin>>x;
+    //printTree2(root);
+    //cout<<countNodes(root);
+    //cout<<checkNode(root,x)<<endl;
+    //cout<<heightOfTree(root)<<endl;
+    //BinaryTreeNode<int>* root2 = mirrorImage(root);
+    //printTree2(root2);
+    //printTree2(root);
+    //inorder(root);
+    //preorder(root);
+    postorder(root);
     delete root;
 }
