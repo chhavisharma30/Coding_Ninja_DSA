@@ -136,12 +136,21 @@ void printTree2(BinaryTreeNode<int>* root){
     }
 }
 
-//func to count no of nodesin tree
+//func to count no of nodes in tree
 int countNodes(BinaryTreeNode<int>* root){
     if(root==NULL){
         return 0;
     }
     return 1+countNodes(root->left)+countNodes(root->right);
+}
+
+//functo find sum of nodes in tree
+int nodeSum(BinaryTreeNode<int>* root){
+    if(root==NULL){
+        return 0;
+    }
+    int sum = root->data+ nodeSum(root->left) + nodeSum(root->right);
+    return sum;
 }
 
 //func to print the tree recursive
@@ -218,6 +227,7 @@ int main(){
     //printTree2(root);
     //inorder(root);
     //preorder(root);
-    postorder(root);
+    //postorder(root);
+    //cout<<nodeSum(root)<<endl;
     delete root;
 }
