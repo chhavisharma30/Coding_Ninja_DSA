@@ -30,7 +30,7 @@ void inorder(BinaryTreeNode<int>* root){
     inorder(root->right);
 }
 
-//preorder traversal : root-left-right'
+//preorder traversal : root-left-right
 void preorder(BinaryTreeNode<int>* root){
     if(root==NULL){
         return;
