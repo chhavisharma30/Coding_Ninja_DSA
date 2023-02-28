@@ -11,6 +11,7 @@ int main(){
     myMap.insert(p);
 
     myMap["two"]=2;
+    myMap["two"]++;
 
     //search
     cout<<myMap.at("one")<<endl;
